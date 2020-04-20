@@ -1,0 +1,1 @@
+docker run -d -p 127.0.0.1:7777:5555 -v /home/jingbao/桌面/xxx:/home python /bin/sh -c "while true; do echo hello world; sleep 100;done"
