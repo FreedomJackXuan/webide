@@ -1,2 +1,1 @@
-read message
-echo $message
+ps -ef | grep idea

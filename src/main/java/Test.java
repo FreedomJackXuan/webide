@@ -5,7 +5,7 @@ import java.io.InputStreamReader;
 public class Test {
     public static void main(String[] args) {
 
-        String path = "sh /Users/muyou/ide/webide/shell/test.sh xxx";
+        String path = "sh shell/test.sh";
         try{
             Runtime runtime = Runtime.getRuntime();
             Process pro = runtime.exec(path);
@@ -18,9 +18,17 @@ public class Test {
             BufferedReader br = new BufferedReader(new InputStreamReader(pro.getInputStream()));
             StringBuffer strbr = new StringBuffer();
             String line;
+
             while ((line = br.readLine())!= null)
             {
-                strbr.append(line).append("\n");
+                if (line.contains("grep idea")) {
+                    continue;
+                }
+                StringBuffer bt = new StringBuffer();
+                System.out.println(line);
+                String res = line.replaceAll("\\s{1,}", " ");
+                System.out.println(res);
+//                strbr.append(line).append("\n");
             }
 
             String result = strbr.toString();

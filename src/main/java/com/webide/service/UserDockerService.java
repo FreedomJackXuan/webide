@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStreamReader;
 
 @Service
@@ -36,10 +37,10 @@ public class UserDockerService {
         return docker;
     }
 
-    public UserDocker createDocker(User user) {
+    public UserDocker createDocker(User user) throws Exception {
         long id = user.getId();
-
-        File file = new File("/home/jac/"+user.getId());
+        String path = "/home/jac/"+user.getId();
+        File file = new File(path);
         if (!file.exists()){
             file.mkdir();
         }
@@ -47,26 +48,10 @@ public class UserDockerService {
         boolean rundocker = false;
         if (udocker.getDockerid() == null || ("").equals(udocker.getDockerid())){
             rundocker = true;
-            Process process=Runtime.getRuntime().exec(new String[]
-                    {"/home/jingbao/桌面/shell/startDocker.sh","7777",
-                            "/home/jingbao/桌面/"+data.getMac(),
-                            "/home"},null,null);
-            BufferedReader read=new BufferedReader(new InputStreamReader(process
-                    .getInputStream()));
-            process.waitFor();
-            String res="";
-            String line="";
-            while ((line=read.readLine())!=null){
-                res=res+line;
-            }
-            System.out.println();
-            if (res==""||res.equals("")){
-            }else {
-                String[] id=res.split("[  ]");
-                operating.set(data.getMac()+"_docker",id[8]);
-                data.setDockerId(id[8]);
-            }
         } else {
+            int docker_status = isRunDocker(udocker.getDockerid(), path);
+        }
+        if (rundocker) {
 
         }
         return udocker;
@@ -74,5 +59,33 @@ public class UserDockerService {
 
     public String getFilePaht() {
         return "";
+    }
+
+    public Integer isRunDocker(String dockerid, String path) throws Exception {
+        int readline = 0;
+        String comd = "sh shell/dockerps.sh "+dockerid;
+        Process process = Runtime.getRuntime().exec(comd);
+        BufferedReader read = new BufferedReader(new InputStreamReader(process.getInputStream()));
+        process.waitFor();
+        StringBuffer res = new StringBuffer();
+        String line = "";
+
+        int result = -1;
+        while ((line = read.readLine()) != null) {
+            readline += 1;
+            if (line.contains("CONTAINER")){
+                continue;
+            }
+            if (line.contains("UP")) {
+                result = 1;
+            } else {
+                result = 2;
+            }
+        }
+        if (readline == 1) {
+            result = 0;
+        }
+
+        return result;
     }
 }
