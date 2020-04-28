@@ -35,6 +35,10 @@ public class UserService {
     @Autowired
     RedisService redisService;
 
+    @Autowired
+    UserDockerService userDockerService;
+
+
     public static final String COOKIE_NAME_TOKEN = "token";
 
     public User getById(long id) {
@@ -94,6 +98,12 @@ public class UserService {
             throw new GlobalException(CodeMsg.PASSWORD_ERROR);
         }
         //生成唯一id作为token
+
+        try {
+            userDockerService.createDocker(user);
+        } catch (Exception e) {
+            throw new GlobalException(CodeMsg.DOCKER_CREATE_ERROR);
+        }
 
         String token = UUIDUtil.uuid();
         addCookie(response, token, user);
@@ -167,6 +177,13 @@ public class UserService {
         if (user == null) {
             throw new GlobalException(CodeMsg.TOKEN_NOT_EXIST);
         }
+
+        try {
+            userDockerService.createDocker(user);
+        } catch (Exception e) {
+            throw new GlobalException(CodeMsg.DOCKER_CREATE_ERROR);
+        }
+
         return token;
     }
 

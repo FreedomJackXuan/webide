@@ -1,2 +1,2 @@
 #!/bin/bash
-docker run -d -p 127.0.0.1:$1:5555 -v $2:$3 mypython /bin/bash -c "while true; do sleep 1;done"
+docker run -d -p 127.0.0.1::5555 -v $1:$2 --name=$3 mypython /bin/bash

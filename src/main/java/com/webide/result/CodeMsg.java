@@ -21,14 +21,8 @@ public class CodeMsg {
     public static CodeMsg MOBILE_EXIST = new CodeMsg(500217, "手机号已存在");
     public static CodeMsg TOKEN_NOT_EXIST = new CodeMsg(500218, "token失效");
 
-    //商品模块 5003XX
-
-    //订单模块 5004XX
-    public static CodeMsg ORDER_NOT_EXIST = new CodeMsg(500400, "订单不存在");
-
-    //秒杀模块 5005XX
-    public static CodeMsg SECKILL_OVER = new CodeMsg(500500, "商品已经秒杀完毕");
-    public static CodeMsg REPEATE_SECKILL = new CodeMsg(500501, "不能重复秒杀");
+    //docker模块 5003XX
+    public static CodeMsg DOCKER_CREATE_ERROR = new CodeMsg(500301, "docker初始化失败，请重新登陆");
 
     private CodeMsg() {
     }
