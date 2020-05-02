@@ -3,11 +3,6 @@ package com.webide.vo;
 import javax.websocket.Session;
 import java.io.Serializable;
 
-/**
- * @Author NieZhiLiang
- * @Email nzlsgg@163.com
- * @Date 2019/3/1 上午9:08
- */
 public class Client implements Serializable {
 
     private static final long serialVersionUID = 8957107006902627635L;
@@ -39,4 +34,13 @@ public class Client implements Serializable {
 
     public Client() {
     }
+
+    @Override
+    public String toString() {
+        return "Client{" +
+                "userName='" + userName + '\'' +
+                ", session='" + session + '\'' +
+                '}';
+    }
+
 }

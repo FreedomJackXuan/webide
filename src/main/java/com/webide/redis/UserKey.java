@@ -1,8 +1,5 @@
 package com.webide.redis;
 
-/**
- * Created by jiangyunxiong on 2018/5/21.
- */
 public class UserKey extends BasePrefix {
 
     public static final int TOKEN_EXPIRE = 3600*24 *2;//默认两天

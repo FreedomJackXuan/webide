@@ -4,9 +4,7 @@ import com.webide.validator.IsMobile;
 
 import javax.validation.constraints.NotNull;
 
-/**
- * Created by jiangyunxiong on 2018/5/22.
- */
+
 public class LoginVo {
 
     @NotNull

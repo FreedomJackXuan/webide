@@ -1,6 +1,6 @@
 package com.webide.controller;
 
-import com.webide.server.SocketServer;
+import com.webide.server.WebSocketServer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,7 +17,7 @@ import java.util.List;
 public class WebSocketController {
 
     @Autowired
-    private SocketServer socketServer;
+    private WebSocketServer webSocketServer;
 
     /**
      *
@@ -38,8 +38,8 @@ public class WebSocketController {
      */
     @RequestMapping(value = "/admin")
     public String admin(Model model) {
-        int num = socketServer.getOnlineNum();
-        List<String> list = socketServer.getOnlineUsers();
+        int num = webSocketServer.getOnlineNum();
+        List<String> list = webSocketServer.getOnlineUsers();
 
         model.addAttribute("num",num);
         model.addAttribute("users",list);
@@ -56,7 +56,7 @@ public class WebSocketController {
         //第一个参数 :msg 发送的信息内容
         //第二个参数为用户长连接传的用户人数
         String [] persons = username.split(",");
-        SocketServer.SendMany(msg,persons);
+        WebSocketServer.SendMany(msg,persons);
         return "success";
     }
 
@@ -67,7 +67,7 @@ public class WebSocketController {
     @RequestMapping("sendAll")
     @ResponseBody
     public String sendAll(String msg){
-        SocketServer.sendAll(msg);
+        WebSocketServer.sendAll(msg);
         return "success";
     }
 }

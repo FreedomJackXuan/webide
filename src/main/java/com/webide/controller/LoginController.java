@@ -16,9 +16,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 
-/**
- * Created by jiangyunxiong on 2018/5/21.
- */
 @Controller
 @RequestMapping("/login")
 public class LoginController {

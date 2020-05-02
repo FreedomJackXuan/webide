@@ -11,20 +11,18 @@ import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.stream.Collectors;
 
 @ServerEndpoint(value = "/socketServer/{userName}")
 @Component
-public class SocketServer {
+public class WebSocketServer {
 
-	private static final Logger logger = LoggerFactory.getLogger(SocketServer.class);
+	private static final Logger logger = LoggerFactory.getLogger(WebSocketServer.class);
 
-	/**
-	 *
-	 * 用线程安全的CopyOnWriteArraySet来存放客户端连接的信息
-	 */
-	private static CopyOnWriteArraySet<Client> socketServers = new CopyOnWriteArraySet<>();
+
+	private static ConcurrentHashMap<String, Client> socketServers = new ConcurrentHashMap<>();
 
 	/**
 	 *
@@ -50,11 +48,13 @@ public class SocketServer {
 	 */
 	@OnOpen
 	public void open(Session session, @PathParam(value="userName")String userName){
-
-			this.session = session;
-			socketServers.add(new Client(userName,session));
-
-			logger.info("客户端:【{}】连接成功",userName);
+		this.session = session;
+		logger.info(session.getId());
+		socketServers.add(new Client(userName,session));
+		logger.info("客户端:【{}】连接成功",userName);
+		socketServers.forEach(client ->{
+			logger.info(client.toString());
+		});
 
 	}
 
