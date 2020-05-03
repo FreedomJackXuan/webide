@@ -3,6 +3,7 @@ package com.webide.controller;
 import com.webide.result.Result;
 import com.webide.service.UserService;
 import com.webide.vo.LoginVo;
+import com.webide.vo.UserInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,16 +28,16 @@ public class LoginController {
 
     @RequestMapping("/do_login")
     @ResponseBody
-    public Result<String> doLogin(HttpServletResponse response, @RequestBody @Valid LoginVo loginVo) {
+    public Result<UserInfo> doLogin(HttpServletResponse response, @RequestBody @Valid LoginVo loginVo) {
         log.info(loginVo.toString());
-        String token = userService.login(response, loginVo);
+        UserInfo token = userService.login(response, loginVo);
         return Result.success(token);
     }
 
     @RequestMapping("/token")
     @ResponseBody
-    public Result<String> tokenLogin(NativeWebRequest nativeWebRequest) {
-        String token = userService.tokenLogin(nativeWebRequest);
+    public Result<UserInfo> tokenLogin(NativeWebRequest nativeWebRequest) {
+        UserInfo token = userService.tokenLogin(nativeWebRequest);
         return Result.success(token);
     }
 }

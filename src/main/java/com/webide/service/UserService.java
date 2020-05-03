@@ -11,6 +11,7 @@ import com.webide.util.MD5Util;
 import com.webide.util.UUIDUtil;
 import com.webide.vo.LoginVo;
 import com.webide.vo.RegisterVo;
+import com.webide.vo.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;
 import org.springframework.stereotype.Service;
@@ -74,7 +75,7 @@ public class UserService {
         return true;
     }
 
-    public String login(HttpServletResponse response, LoginVo loginVo) {
+    public UserInfo login(HttpServletResponse response, LoginVo loginVo) {
         if (loginVo == null) {
             throw new GlobalException(CodeMsg.SERVER_ERROR);
         }
@@ -104,7 +105,10 @@ public class UserService {
 
         String token = UUIDUtil.uuid();
         addCookie(response, token, user);
-        return token;
+        UserInfo userInfo = new UserInfo();
+        userInfo.setId(mobile);
+        userInfo.setTocken(token);
+        return userInfo;
     }
 
     /**
@@ -160,7 +164,7 @@ public class UserService {
         return "true";
     }
 
-    public String tokenLogin(NativeWebRequest nativeWebRequest){
+    public UserInfo tokenLogin(NativeWebRequest nativeWebRequest){
         HttpServletRequest request = nativeWebRequest.getNativeRequest(HttpServletRequest.class);
         HttpServletResponse response = nativeWebRequest.getNativeResponse(HttpServletResponse.class);
 
@@ -180,8 +184,10 @@ public class UserService {
         } catch (Exception e) {
             throw new GlobalException(CodeMsg.DOCKER_CREATE_ERROR);
         }
-
-        return token;
+        UserInfo userInfo = new UserInfo();
+        userInfo.setId(Long.toString(user.getId()));
+        userInfo.setTocken(token);
+        return userInfo;
     }
 
     //遍历所有cookie，找到需要的那个cookie

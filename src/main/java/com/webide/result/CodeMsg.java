@@ -23,6 +23,10 @@ public class CodeMsg {
 
     //docker模块 5003XX
     public static CodeMsg DOCKER_CREATE_ERROR = new CodeMsg(500301, "docker初始化失败，请重新登陆");
+    public static CodeMsg DOCKER_PIP_INSTALL = new CodeMsg(500302, "docker pip install error");
+
+    //websocket error 5004XX
+    public static CodeMsg SEND_ERROR = new CodeMsg(500401, "websocket 接受错误");
 
     private CodeMsg() {
     }

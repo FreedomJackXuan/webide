@@ -7,15 +7,15 @@ public class Client implements Serializable {
 
     private static final long serialVersionUID = 8957107006902627635L;
 
-    private String userName;
+    private Long userName;
 
     private Session session;
 
-    public String getUserName() {
+    public Long getUserName() {
         return userName;
     }
 
-    public void setUserName(String userName) {
+    public void setUserName(Long userName) {
         this.userName = userName;
     }
 
@@ -27,7 +27,7 @@ public class Client implements Serializable {
         this.session = session;
     }
 
-    public Client(String userName, Session session) {
+    public Client(Long userName, Session session) {
         this.userName = userName;
         this.session = session;
     }

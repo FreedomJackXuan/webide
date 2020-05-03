@@ -38,11 +38,11 @@ public class WebSocketController {
      */
     @RequestMapping(value = "/admin")
     public String admin(Model model) {
-        int num = webSocketServer.getOnlineNum();
-        List<String> list = webSocketServer.getOnlineUsers();
-
-        model.addAttribute("num",num);
-        model.addAttribute("users",list);
+//        int num = webSocketServer.getOnlineNum();
+//        List<String> list = webSocketServer.getOnlineUsers();
+//
+//        model.addAttribute("num",num);
+//        model.addAttribute("users",list);
         return "admin";
     }
 
@@ -55,8 +55,8 @@ public class WebSocketController {
     public String sendmsg(String msg, String username){
         //第一个参数 :msg 发送的信息内容
         //第二个参数为用户长连接传的用户人数
-        String [] persons = username.split(",");
-        WebSocketServer.SendMany(msg,persons);
+//        String [] persons = username.split(",");
+//        WebSocketServer.SendMany(msg,persons);
         return "success";
     }
 
@@ -67,7 +67,7 @@ public class WebSocketController {
     @RequestMapping("sendAll")
     @ResponseBody
     public String sendAll(String msg){
-        WebSocketServer.sendAll(msg);
+//        WebSocketServer.sendAll(msg);
         return "success";
     }
 }
