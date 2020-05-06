@@ -25,7 +25,7 @@ public class RegisterController {
 
     @RequestMapping("/do_register")
     @ResponseBody
-    public Result<String> doLogin(HttpServletResponse response, @RequestBody @Valid RegisterVo registerVo) {//加入JSR303参数校验
+    public Result<String> doRegister(HttpServletResponse response, @RequestBody @Valid RegisterVo registerVo) {//加入JSR303参数校验
         log.info(registerVo.toString());
         System.out.println(registerVo.toString());
         String token = userService.register(response, registerVo);

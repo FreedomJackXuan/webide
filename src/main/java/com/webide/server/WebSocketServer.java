@@ -95,10 +95,6 @@ public class WebSocketServer {
 					e.printStackTrace();
 				}
 				break;
-			case "3":
-				break;
-			case "4":
-				break;
 		}
 		sendMessage(cmdmessage, userName);
 
